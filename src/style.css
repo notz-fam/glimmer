@@ -122,3 +122,10 @@ body {
 @keyframes blink {
   50% { opacity: 0.35; }
 }
+
+/* Drift-only version: deep water, a little lighter toward the top */
+.deep {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, #0a2342 0%, #04122a 45%, #01040c 100%);
+}

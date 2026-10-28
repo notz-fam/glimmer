@@ -129,3 +129,31 @@ body {
   inset: 0;
   background: linear-gradient(to bottom, #0a2342 0%, #04122a 45%, #01040c 100%);
 }
+
+/* Optional fullscreen toggle, faint until hovered */
+.fullscreen {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(200, 225, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(2, 10, 24, 0.4);
+  color: #e6f0ff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity 0.4s ease;
+}
+.fullscreen:hover,
+.fullscreen:focus-visible {
+  opacity: 0.9;
+}
+.fullscreen.on {
+  opacity: 0.15;
+}
+.fullscreen[hidden] {
+  display: none;
+}

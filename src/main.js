@@ -43,6 +43,27 @@ for (const c of everything) scene.add(c.setLayer(layer).object);
 
 const pointer = new Pointer(canvas, camera);
 
+// Optional fullscreen: button (bottom right) or the F key. Hidden where unsupported.
+const fsButton = document.getElementById('fullscreen');
+const root = document.documentElement;
+const requestFs = root.requestFullscreen || root.webkitRequestFullscreen;
+const exitFs = document.exitFullscreen || document.webkitExitFullscreen;
+const fsElement = () => document.fullscreenElement || document.webkitFullscreenElement;
+function toggleFullscreen() {
+  if (fsElement()) exitFs.call(document);
+  else requestFs.call(root).catch?.(() => {});
+}
+if (requestFs) {
+  fsButton.hidden = false;
+  fsButton.addEventListener('click', toggleFullscreen);
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+  });
+  const sync = () => fsButton.classList.toggle('on', !!fsElement());
+  document.addEventListener('fullscreenchange', sync);
+  document.addEventListener('webkitfullscreenchange', sync);
+}
+
 // Camera floats slowly in front of the scene
 const CAM_BASE = new THREE.Vector3(0, 1, 30);
 const LOOK_AT = new THREE.Vector3(0, 0, -5);

@@ -1,0 +1,124 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #01040c;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;
+  color: #e6f0ff;
+}
+
+/* Night sky above the horizon, dark sea below. --h follows the real horizon. */
+.night {
+  --h: 20%;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    #01030a 0%,
+    #050d26 calc(var(--h) - 14%),
+    #13284d var(--h),
+    #061630 calc(var(--h) + 1.5%),
+    #020a18 calc(var(--h) + 30%),
+    #01040c 100%
+  );
+}
+
+#scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: pointer;
+}
+
+/* Darkness for the chapter where the stars go out */
+.veil {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 62%, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.95) 70%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- narration ---------- */
+.narration {
+  position: fixed;
+  left: 50%;
+  bottom: 12%;
+  transform: translate(-50%, 6px);
+  width: min(88vw, 640px);
+  margin: 0;
+  text-align: center;
+  font-size: clamp(15px, 3.6vw, 20px);
+  line-height: 1.9;
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.9), 0 0 24px rgba(120, 180, 255, 0.35);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.narration.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---------- title / ending ---------- */
+.overlay {
+  position: fixed;
+  left: 50%;
+  top: 34%;
+  transform: translate(-50%, -50%);
+  width: min(90vw, 560px);
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  text-shadow: 0 0 18px rgba(150, 200, 255, 0.55);
+}
+.overlay.show {
+  opacity: 1;
+}
+.overlay h1 {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(28px, 7vw, 48px);
+  letter-spacing: 0.3em;
+  padding-left: 0.3em;
+}
+.overlay .sub {
+  margin: 14px 0 40px;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  opacity: 0.75;
+}
+.overlay .hint {
+  margin-top: 18px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  opacity: 0.55;
+}
+.overlay.ending {
+  top: 9%;
+  transform: translate(-50%, 0);
+  width: min(92vw, 760px);
+}
+.overlay .end-line {
+  font-size: clamp(16px, 4vw, 22px);
+  line-height: 2;
+  letter-spacing: 0.15em;
+  margin-bottom: 36px;
+}
+.blink {
+  font-size: 14px;
+  letter-spacing: 0.25em;
+  animation: blink 2.4s ease-in-out infinite;
+}
+@keyframes blink {
+  50% { opacity: 0.35; }
+}

@@ -9,6 +9,8 @@ import { createStingray } from './creatures/stingray.js';
 import { createTurtle } from './creatures/turtle.js';
 import { createMarineSnow } from './ambient.js';
 import { createEnvironment } from './environment/index.js';
+import { createFarReef } from './environment/farReef.js';
+import { createLightShafts } from './environment/lightShafts.js';
 
 // Drift-only version: just the ocean and its creatures, no story.
 
@@ -38,8 +40,15 @@ const ocean = {
   jelly2: createJellyfish({ position: new THREE.Vector3(10, 6, -8), index: 1, scale }),
   jelly3: createJellyfish({ position: new THREE.Vector3(-3, -1, -16), index: 2, scale }),
 };
-const everything = Object.values(ocean).flat();
-for (const c of everything) scene.add(c.setLayer(layer).object);
+const near = Object.values(ocean).flat();
+for (const c of near) scene.add(c.setLayer(layer).object);
+
+// Far ridges and light from the surface: longer fog, so they fade out further away
+const farReef = createFarReef(scale).setLayer(makeLayer({ fogNear: 55, fogFar: 230 }));
+const lightShafts = createLightShafts(scale).setLayer(makeLayer({ fogNear: 30, fogFar: 110 }));
+scene.add(farReef.object, lightShafts.object);
+
+const everything = [...near, farReef, lightShafts];
 
 const pointer = new Pointer(canvas, camera);
 
